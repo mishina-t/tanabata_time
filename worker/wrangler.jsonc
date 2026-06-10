@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tanabata-rakuken-sync",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-01",
+  "durable_objects": {
+    "bindings": [
+      { "name": "SCHEDULE_ROOM", "class_name": "ScheduleRoom" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["ScheduleRoom"] }
+  ],
+  "vars": {
+    "ALLOWED_ORIGIN": "https://example.github.io"
+  }
+}
