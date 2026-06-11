@@ -7,7 +7,7 @@ export default defineConfig(({ command }) => ({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["icon.svg"],
+      includeAssets: ["icon.jpeg"],
       manifest: {
         name: "七夕祭 落語研究会",
         short_name: "七夕落研",
@@ -18,11 +18,13 @@ export default defineConfig(({ command }) => ({
         start_url: "./#/schedule?date=2026-07-04",
         lang: "ja",
         icons: [
-          { src: "icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" },
+          { src: "icon.jpeg", sizes: "1024x1024", type: "image/jpeg", purpose: "any" },
+          { src: "icon.jpeg", sizes: "512x512", type: "image/jpeg", purpose: "any" },
+          { src: "icon.jpeg", sizes: "192x192", type: "image/jpeg", purpose: "any" },
         ],
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,svg,webmanifest}"],
+        globPatterns: ["**/*.{js,css,html,svg,webmanifest,jpg,jpeg,png}"],
         navigateFallback: "index.html",
       },
     }),
