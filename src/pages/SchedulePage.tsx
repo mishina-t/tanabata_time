@@ -1,10 +1,11 @@
 import { useEffect, useMemo } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { CurrentClock } from "../components/CurrentClock";
 import { DayTimeline } from "../components/DayTimeline";
 import { DateTabs } from "../components/DateTabs";
 import { EventCard } from "../components/EventCard";
 import { OffsetControl } from "../components/OffsetControl";
+import { OfficialIconLinks } from "../components/OfficialIconLinks";
 import { OperatorBar } from "../components/OperatorBar";
 import { RunOverview } from "../components/RunOverview";
 import { scheduleItems } from "../data/schedule";
@@ -73,8 +74,8 @@ export function SchedulePage() {
   return (
     <main className="schedule-page">
       <header className="schedule-header">
-        <Link to="/" className="back-link">← ホーム</Link>
-        <div><p className="eyebrow">RAKUGO TIMETABLE</p><h1>七夕落研</h1></div>
+        <div className="schedule-title"><p className="eyebrow">RAKUGO TIMETABLE</p><h1>七夕落研</h1></div>
+        <OfficialIconLinks />
         <CurrentClock now={now} />
       </header>
       <div className="schedule-content">

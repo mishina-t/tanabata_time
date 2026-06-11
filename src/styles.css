@@ -54,11 +54,14 @@ h1, h2, h3 { letter-spacing: -.02em; }
 
 /* Schedule shell */
 .schedule-page { min-height: 100vh; background: #f5f6f8; }
-.schedule-header { display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; padding: max(13px, env(safe-area-inset-top)) max(18px, calc((100vw - 920px) / 2)) 13px; color: white; background: #252a31; }
-.schedule-header > div { grid-column: 2; }
+.schedule-header { display: grid; grid-template-columns: 1fr auto auto; gap: 14px; align-items: center; padding: max(13px, env(safe-area-inset-top)) max(18px, calc((100vw - 920px) / 2)) 13px; color: white; background: #252a31; }
+.schedule-title { grid-column: 1; }
 .schedule-header h1 { margin: 0; font-size: 1.25rem; }
 .schedule-header .eyebrow { margin: 0 0 2px; color: #bdc3ca; font-size: .58rem; }
-.back-link { grid-column: 1; color: #e4e7ea; font-size: .8rem; text-decoration: none; white-space: nowrap; }
+.official-icon-links { grid-column: 2; display: flex; gap: 5px; }
+.official-icon-links a { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid #555d67; border-radius: 5px; color: #e7eaed; background: #30363d; }
+.official-icon-links a:hover { border-color: #8d959e; background: #3b424a; }
+.official-icon-links svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .clock { grid-column: 3; display: flex; flex-direction: column; align-items: flex-end; }
 .clock span { color: #bdc3ca; font-size: .65rem; }
 .clock strong { font-size: 1rem; font-variant-numeric: tabular-nums; letter-spacing: .03em; }
@@ -196,11 +199,12 @@ h1, h2, h3 { letter-spacing: -.02em; }
 .danger-link { display: block; margin: 30px auto 0; padding: 10px; border: 0; color: #7b3b44; background: transparent; font-size: .75rem; text-decoration: underline; }
 
 @media (max-width: 620px) {
-  .schedule-header { grid-template-columns: auto 1fr auto; gap: 10px; padding-inline: 12px; }
+  .schedule-header { gap: 8px; padding-inline: 12px; }
   .schedule-header .eyebrow { display: none; }
   .schedule-header h1 { font-size: 1.05rem; }
   .clock span { display: none; }
   .clock strong { font-size: .9rem; }
+  .official-icon-links a { width: 32px; height: 32px; }
   .sticky-schedule-tools { padding-inline: 8px; }
   .date-tabs { max-width: none; }
   .date-tabs button { min-height: 36px; padding: 5px 4px; font-size: .76rem; }
