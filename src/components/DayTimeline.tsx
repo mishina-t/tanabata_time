@@ -11,7 +11,6 @@ type TimelineEntry = {
 type Props = {
   entries: TimelineEntry[];
   nowTime: string;
-  isToday: boolean;
   activeItemId?: string;
 };
 
@@ -22,7 +21,7 @@ const typeLabels: Record<ScheduleItem["type"], string> = {
   notice: "案内",
 };
 
-export function DayTimeline({ entries, nowTime, isToday, activeItemId }: Props) {
+export function DayTimeline({ entries, nowTime, activeItemId }: Props) {
   if (entries.length === 0) return null;
 
   const positioned = entries.map((entry) => ({
@@ -51,7 +50,7 @@ export function DayTimeline({ entries, nowTime, isToday, activeItemId }: Props) 
   const activeEntry = positioned.find((entry) => entry.item.id === activeItemId);
   const isStageActive = activeEntry?.item.type === "stage_event";
   const currentMinutes = timeToMinutes(nowTime);
-  const showNowMarker = isToday && currentMinutes >= rangeStart && currentMinutes <= rangeEnd;
+  const nowMarkerLeft = Math.min(100, Math.max(0, ((currentMinutes - rangeStart) / range) * 100));
   const halfHourTicks = Array.from({ length: Math.floor(range / 30) + 1 }, (_, index) => rangeStart + index * 30);
 
   const scrollToItem = (itemId: string) => {
@@ -62,31 +61,32 @@ export function DayTimeline({ entries, nowTime, isToday, activeItemId }: Props) 
     <section className={`day-overview ${isStageActive ? "stage-active" : ""}`} aria-label="1日のタイムバー">
       <div className="day-overview-header">
         <strong>{isStageActive ? "ステージ企画中" : activeEntry ? `進行中: ${activeEntry.item.title}` : "1日の進行"}</strong>
-        <span>{isToday ? `現在 ${nowTime}` : "予定時刻"}</span>
+        <span>現在 {nowTime}</span>
       </div>
-      <div className="day-scale" aria-hidden="true">
-        {halfHourTicks.map((tick) => {
-          const isHour = tick % 60 === 0;
-          return (
+      <div className="day-timeline-chart">
+        <div className="day-scale" aria-hidden="true">
+          {halfHourTicks.map((tick) => {
+            const isHour = tick % 60 === 0;
+            return (
+              <span
+                key={tick}
+                className={`scale-line ${isHour ? "scale-line-hour" : "scale-line-half"}`}
+                style={{ left: `${((tick - rangeStart) / range) * 100}%` }}
+              >
+                {isHour && <small>{String(Math.floor(tick / 60)).padStart(2, "0")}:00</small>}
+              </span>
+            );
+          })}
+        </div>
+        <div className="day-track" aria-label="30分間隔のタイムライン">
+          {halfHourTicks.map((tick) => (
             <span
-              key={tick}
-              className={`scale-line ${isHour ? "scale-line-hour" : "scale-line-half"}`}
+              key={`grid-${tick}`}
+              className={`track-grid-line ${tick % 60 === 0 ? "major" : "minor"}`}
               style={{ left: `${((tick - rangeStart) / range) * 100}%` }}
-            >
-              {isHour && <small>{String(Math.floor(tick / 60)).padStart(2, "0")}:00</small>}
-            </span>
-          );
-        })}
-      </div>
-      <div className="day-track" aria-label="30分間隔のタイムライン">
-        {halfHourTicks.map((tick) => (
-          <span
-            key={`grid-${tick}`}
-            className={`track-grid-line ${tick % 60 === 0 ? "major" : "minor"}`}
-            style={{ left: `${((tick - rangeStart) / range) * 100}%` }}
-          />
-        ))}
-        {displayBlocks.map((entry) => (
+            />
+          ))}
+          {displayBlocks.map((entry) => (
             <button
               key={entry.item.id}
               className={`day-block day-block-${entry.item.type} ${activeItemId && entry.itemIds.includes(activeItemId) ? "active" : ""}`}
@@ -101,12 +101,19 @@ export function DayTimeline({ entries, nowTime, isToday, activeItemId }: Props) 
               <span>{typeLabels[entry.item.type]}</span>
             </button>
           ))}
-        {showNowMarker && <span className="now-marker" style={{ left: `${((currentMinutes - rangeStart) / range) * 100}%` }} />}
+        </div>
+        <span
+          className="now-marker"
+          style={{ left: `${nowMarkerLeft}%` }}
+          aria-label={`現在 ${nowTime}`}
+          title={`現在 ${nowTime}`}
+        />
       </div>
       <div className="day-legend">
         <span><i className="legend-classroom" />教室寄席</span>
         <span><i className="legend-stage" />ステージ</span>
         <span><i className="legend-break" />休憩</span>
+        <span><i className="legend-now" />現在</span>
       </div>
     </section>
   );
