@@ -84,7 +84,6 @@ export function SchedulePage() {
           <DayTimeline
             entries={timelineItems}
             nowTime={nowTime}
-            isToday={isSelectedToday}
             activeItemId={activeTimelineItem?.item.id}
           />
         </div>
