@@ -10,7 +10,7 @@ export default defineConfig(({ command }) => ({
       includeAssets: ["icon.svg"],
       manifest: {
         name: "七夕祭 落語研究会",
-        short_name: "七夕落研",
+        short_name: "七夕寄席",
         description: "七夕祭の教室寄席とステージ企画を管理する運営用アプリ",
         theme_color: "#252a31",
         background_color: "#f5f6f8",

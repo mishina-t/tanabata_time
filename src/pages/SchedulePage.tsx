@@ -74,7 +74,7 @@ export function SchedulePage() {
   return (
     <main className="schedule-page">
       <header className="schedule-header">
-        <div className="schedule-title"><p className="eyebrow">RAKUGO TIMETABLE</p><h1>七夕落研</h1></div>
+        <div className="schedule-title"><p className="eyebrow">RAKUGO TIMETABLE</p><h1>七夕寄席</h1></div>
         <OfficialIconLinks />
         <CurrentClock now={now} />
       </header>
