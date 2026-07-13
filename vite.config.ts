@@ -7,7 +7,6 @@ export default defineConfig(({ command }) => ({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["icon.svg"],
       manifest: {
         name: "七夕寄席",
         short_name: "七夕寄席",
@@ -17,9 +16,6 @@ export default defineConfig(({ command }) => ({
         display: "standalone",
         start_url: "./#/schedule?date=2026-07-04",
         lang: "ja",
-        icons: [
-          { src: "icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" },
-        ],
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,webmanifest}"],
